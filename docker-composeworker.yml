@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  spark-worker2:
+    image: billalmiron/cluster-db:latest
+    ports:
+      - "9099:8087"                                 
+    environment:
+      - SPARK_MASTER=spark://192.168.0.8:7077
+      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=2G
+      - SPARK_DRIVER_MEMORY=2G
+      - SPARK_EXECUTOR_MEMORY=2G
+      - SPARK_WORKLOAD=worker
+      - SPARK_LOCAL_IP=spark-worker2
+    volumes:
+      - ./apps:/opt/spark-apps
+      - ./data:/opt/spark-data
+    networks:
+      - prueba8_spark-network
+
+networks:
+  prueba8_spark-network:
+    external: true
